@@ -8,17 +8,6 @@ class BinaryTree:
   def __init__(self):
     self.root = None
 
-  def travel(self, node=None):
-    if node is None:
-      node = self.root
-    if node.left:
-      print('(', end='')
-      self.travel(node.left)
-    print(node, end='')
-
-    if node.right:
-      self.travel(node.right)
-      print(')', end='')
 #----------------------------------------------------------------------------------
 
   def append(self, value):  #adiciona um nó
@@ -30,17 +19,25 @@ class BinaryTree:
       self.add(value, self.root)
 
   def add(self, value, node):
+    aux = 0
     if value < node.value:
       if node.left is not None:  #se o valor for menor que a raiz, ele é adicionado à esquerda
+
         self.add(value, node.left)
+        aux += 1
       else:
         node.left = Node(value)
+        node.left.level = aux
 
     else:
       if node.right is not None:  #se o valor for maior que a raiz, ele é adicionado à direita
+
         self.add(value, node.right)
+        aux += 1
       else:
         node.right = Node(value)
+        node.right.level = aux
+
 #----------------------------------------------------------------------------------
 
   def min(self, node=ROOT):
@@ -71,6 +68,7 @@ class BinaryTree:
         node.right = self.remove(aux, node.right)
     return node
 
+
 #--------------------------------------------------------------------------------
 
   def show(self):  #mostra a árvore
@@ -82,23 +80,23 @@ class BinaryTree:
     if node is None:
       node = self.root
     if node.left:
-      print('(', end='')
+      #print('(', end='')
       self.printTree(node.left)
     #print('\n')
-    print(node.value, end='')
+    print(node.value, end=' ')
+    print('\n')
 
     if node.right:
       self.printTree(node.right)
 
-    print(')', end='')
+  #print(')', end='')
 
   # if node is not None:
   #  print(str(node.value), end='\n')
   # self.printTree(node.left, )
   #self.printTree(node.right)
 
-
-#-------------------------------------------------------------------------------
+  #-------------------------------------------------------------------------------
 
   def search(self, value):  #percorre a árvore e acha um valor
     if self.root is not None:
